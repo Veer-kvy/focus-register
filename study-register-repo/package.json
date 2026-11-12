@@ -1,0 +1,82 @@
+{
+  "name": "study-register",
+  "productName": "Study Register",
+  "version": "1.0.0",
+  "description": "A local macOS menu bar study register.",
+  "main": "main.js",
+  "author": "Veer Vibes",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "icons": "node scripts/generate-assets.js",
+    "test": "node --test \"tests/*.test.js\"",
+    "smoke": "node scripts/smoke.js",
+    "pack": "electron-builder --mac dir --arm64",
+    "dist": "npm run icons && electron-builder --mac dmg --arm64"
+  },
+  "devDependencies": {
+    "electron": "^45.2.1",
+    "electron-builder": "^26.18.0"
+  },
+  "build": {
+    "appId": "com.veervibes.studyregister",
+    "productName": "Study Register",
+    "copyright": "Copyright \u00a9 2026 Veer Vibes",
+    "artifactName": "Study-Register-${version}-${arch}.${ext}",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "package.json",
+      "!**/*.map",
+      "!**/.DS_Store"
+    ],
+    "asar": true,
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.productivity",
+      "icon": "build/icon.icns",
+      "darkModeSupport": true,
+      "minimumSystemVersion": "12.0",
+      "extendInfo": {
+        "LSUIElement": true,
+        "NSHumanReadableCopyright": "Copyright \u00a9 2026 Veer Vibes"
+      },
+      "identity": "-"
+    },
+    "dmg": {
+      "title": "Study Register ${version}",
+      "icon": "build/icon.icns",
+      "backgroundColor": "#101114",
+      "window": {
+        "width": 640,
+        "height": 420
+      },
+      "contents": [
+        {
+          "x": 168,
+          "y": 216,
+          "type": "file"
+        },
+        {
+          "x": 472,
+          "y": 216,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
+  }
+}

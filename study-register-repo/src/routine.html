@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Register · My Routine</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/routine.css">
+</head>
+<body class="routine-page">
+  <div class="routine-shell">
+    <header class="routine-header">
+      <div class="routine-brand">
+        <div class="brand-mark brand-mark-lg" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3.5" y="5.2" width="17" height="15.3" rx="2.2"></rect>
+            <path d="M3.5 9.7h17M8.3 3.2v4M15.7 3.2v4"></path>
+            <path d="M8 13.2h2.6M8 16.5h2.6M13.4 13.2H16M13.4 16.5H16"></path>
+          </svg>
+        </div>
+        <div class="routine-brand-text">
+          <h1>My Routine</h1>
+          <p class="routine-header-sub" id="routineHeaderSub">Your permanent timetable and daily plan</p>
+        </div>
+      </div>
+      <div class="routine-header-actions">
+        <span class="routine-permission-pill" id="permissionPill">
+          <span class="permission-dot"></span>
+          <span id="permissionPillText">Notifications</span>
+        </span>
+        <button class="icon-btn routine-icon-btn" id="registerBtn" type="button" title="Open the menu bar register" aria-label="Open the menu bar register" data-icon="clock"></button>
+        <button class="icon-btn routine-icon-btn" id="dashboardBtn" type="button" title="Open study analytics" aria-label="Open study analytics" data-icon="chart"></button>
+        <button class="icon-btn routine-icon-btn" id="settingsBtn" type="button" title="Settings" aria-label="Settings" data-icon="gear"></button>
+      </div>
+    </header>
+
+    <div class="routine-workspace">
+      <aside class="routine-nav" aria-label="My Routine sections">
+        <div class="routine-nav-label">Plan</div>
+        <button class="routine-nav-item is-active" type="button" data-tab="today">
+          <span class="routine-nav-icon" data-icon="clock"></span>
+          <span class="routine-nav-copy"><strong>Today's Schedule</strong><span>Follow your day</span></span>
+          <span class="routine-nav-badge hidden" id="todayNavBadge"></span>
+        </button>
+        <button class="routine-nav-item" type="button" data-tab="timetable">
+          <span class="routine-nav-icon" data-icon="list"></span>
+          <span class="routine-nav-copy"><strong>Edit Timetable</strong><span>Build activities</span></span>
+        </button>
+        <button class="routine-nav-item" type="button" data-tab="weekly">
+          <span class="routine-nav-icon" data-icon="repeat"></span>
+          <span class="routine-nav-copy"><strong>Weekly Routine</strong><span>Assign each day</span></span>
+        </button>
+
+        <div class="routine-nav-label routine-nav-label-spaced">Review</div>
+        <button class="routine-nav-item" type="button" data-tab="analytics">
+          <span class="routine-nav-icon" data-icon="chart"></span>
+          <span class="routine-nav-copy"><strong>Routine Analytics</strong><span>Planned vs actual</span></span>
+        </button>
+        <button class="routine-nav-item" type="button" data-tab="notifications">
+          <span class="routine-nav-icon" data-icon="bell"></span>
+          <span class="routine-nav-copy"><strong>Notifications</strong><span>Exact-time reminders</span></span>
+          <span class="routine-nav-badge is-warn hidden" id="notificationsNavBadge">!</span>
+        </button>
+      </aside>
+
+      <main class="routine-main" id="routineMain">
+        <section class="routine-view" data-view="today" id="viewToday"></section>
+        <section class="routine-view hidden" data-view="timetable" id="viewTimetable"></section>
+        <section class="routine-view hidden" data-view="weekly" id="viewWeekly"></section>
+        <section class="routine-view hidden" data-view="analytics" id="viewAnalytics"></section>
+        <section class="routine-view hidden" data-view="notifications" id="viewNotifications"></section>
+      </main>
+    </div>
+
+    <footer class="routine-footer">
+      <span class="dash-version" id="routineVersion"></span>
+    </footer>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div id="toastRoot" class="toast-root" role="status" aria-live="polite"></div>
+
+  <script src="js/core.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/routine.js"></script>
+</body>
+</html>

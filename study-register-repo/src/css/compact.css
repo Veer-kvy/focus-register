@@ -1,0 +1,317 @@
+/* Compact dashboard used by the floating launcher. Scoped to html.is-compact. */
+
+html.is-compact .dash-header {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  padding: 16px 18px 10px;
+  -webkit-app-region: no-drag;
+}
+
+html.is-compact .dash-brand {
+  gap: 10px;
+}
+
+html.is-compact .brand-mark-lg {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+}
+
+html.is-compact .brand-mark-lg svg {
+  width: 19px;
+  height: 19px;
+}
+
+html.is-compact .dash-brand-text h1 {
+  font-size: 19px;
+}
+
+html.is-compact .dash-range-row {
+  margin-top: 3px;
+}
+
+html.is-compact .dash-actions {
+  width: 100%;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+html.is-compact .range-switch {
+  flex: 1 1 auto;
+}
+
+html.is-compact .range-switch button {
+  flex: 1 1 auto;
+  height: 26px;
+  padding: 0 4px;
+  font-size: 10px;
+}
+
+html.is-compact .dash-icon-btn {
+  width: 30px;
+  height: 30px;
+}
+
+html.is-compact .dash-icon-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+html.is-compact .dash-main {
+  padding: 0 18px 14px;
+}
+
+html.is-compact .kpi-grid {
+  gap: 8px;
+}
+
+html.is-compact .kpi-card {
+  gap: 9px;
+  padding: 10px 11px;
+}
+
+html.is-compact .kpi-icon {
+  width: 27px;
+  height: 27px;
+  border-radius: 7px;
+}
+
+html.is-compact .kpi-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+html.is-compact .kpi-value {
+  font-size: 18px;
+}
+
+html.is-compact .kpi-note {
+  font-size: 9.5px;
+}
+
+html.is-compact .chart-row {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+html.is-compact .chart-panel {
+  min-height: 0;
+  height: 236px;
+}
+
+html.is-compact .subject-panel {
+  min-height: 0;
+}
+
+html.is-compact .panel-head {
+  padding: 13px 14px 0;
+}
+
+html.is-compact .bar-chart-mount {
+  padding: 12px 14px 10px;
+}
+
+html.is-compact .chart-frame {
+  grid-template-columns: 44px minmax(0, 1fr);
+  min-height: 0;
+}
+
+html.is-compact .subject-panel-body {
+  grid-template-columns: 120px minmax(0, 1fr);
+  padding: 8px 14px 14px;
+}
+
+html.is-compact .donut-wrap {
+  width: 112px;
+  height: 112px;
+}
+
+html.is-compact .donut-center strong {
+  font-size: 16px;
+}
+
+html.is-compact .subject-legend {
+  max-height: 150px;
+}
+
+html.is-compact .register-panel {
+  margin-top: 8px;
+  padding-bottom: 6px;
+}
+
+html.is-compact .register-head {
+  gap: 10px;
+  padding: 12px 14px 9px;
+}
+
+html.is-compact .register-tools {
+  width: 100%;
+  gap: 6px;
+}
+
+html.is-compact .search-box {
+  flex: 1 1 auto;
+  width: auto;
+  height: 30px;
+}
+
+html.is-compact .date-input {
+  width: 120px;
+  height: 30px;
+}
+
+html.is-compact .history-list {
+  padding: 0 8px;
+}
+
+html.is-compact .register-row {
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.2fr) 62px 44px;
+  gap: 6px;
+  padding: 8px 6px;
+}
+
+html.is-compact .row-times {
+  font-size: 9px;
+  gap: 3px;
+}
+
+html.is-compact .row-duration {
+  font-size: 10px;
+}
+
+html.is-compact .row-actions .icon-btn {
+  width: 20px;
+  height: 20px;
+}
+
+html.is-compact .row-actions .icon-btn svg {
+  width: 12px;
+  height: 12px;
+}
+
+html.is-compact .dash-footer {
+  padding: 8px 18px;
+}
+
+html.is-compact .dash-shell {
+  animation: compactPanelIn 150ms var(--ease);
+}
+
+/* Docked launcher: reserve the 58px icon window plus its 8px dock margin. */
+html.is-compact.is-edge-right .dash-shell {
+  position: relative;
+  padding-right: 66px;
+}
+
+html.is-compact.is-edge-left .dash-shell {
+  position: relative;
+  padding-left: 66px;
+}
+
+html.is-compact.is-edge-right .dash-shell::before,
+html.is-compact.is-edge-left .dash-shell::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 66px;
+  background: var(--bg-deep);
+  pointer-events: none;
+}
+
+html.is-compact.is-edge-right .dash-shell::before {
+  right: 0;
+}
+
+html.is-compact.is-edge-left .dash-shell::before {
+  left: 0;
+}
+
+html.is-compact.is-edge-right .dash-shell::after,
+html.is-compact.is-edge-left .dash-shell::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line-strong);
+  pointer-events: none;
+}
+
+html.is-compact.is-edge-right .dash-shell::after {
+  right: 66px;
+}
+
+html.is-compact.is-edge-left .dash-shell::after {
+  left: 66px;
+}
+
+html.is-compact.is-edge .dash-main {
+  display: flex;
+  flex-direction: column;
+}
+
+html.is-compact.is-edge .kpi-grid,
+html.is-compact.is-edge .chart-row {
+  flex: 0 0 auto;
+}
+
+html.is-compact.is-edge .register-panel {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 180px;
+}
+
+html.is-compact.is-edge .history-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+html.is-compact.is-edge .dash-shell {
+  animation: none;
+}
+
+html.is-compact.is-edge.is-revealing.is-edge-right .dash-shell {
+  animation: edgePanelInRight 190ms var(--ease);
+}
+
+html.is-compact.is-edge.is-revealing.is-edge-left .dash-shell {
+  animation: edgePanelInLeft 190ms var(--ease);
+}
+
+@keyframes edgePanelInRight {
+  from {
+    opacity: 0;
+    transform: translateX(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes edgePanelInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes compactPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

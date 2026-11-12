@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Register</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="shell" id="shell">
+    <header class="titlebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="8.25"></circle>
+            <path d="M12 7.75V12l2.9 1.85"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Study Register</h1>
+          <p id="headerDate">—</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="header-clock" aria-label="Current time">
+          <span class="clock-time" id="headerTime">—</span>
+          <span class="clock-suffix" id="headerSuffix"></span>
+        </div>
+        <button class="icon-btn" id="routineBtn" type="button" title="My Routine" aria-label="My Routine" data-icon="repeat"></button>
+        <button class="icon-btn" id="dashboardBtn" type="button" title="Open dashboard" aria-label="Open dashboard" data-icon="chart"></button>
+        <button class="icon-btn" id="settingsBtn" type="button" title="Settings" aria-label="Settings" data-icon="gear"></button>
+      </div>
+    </header>
+
+    <main class="scroll" id="scrollArea">
+      <section class="hero card" id="hero" aria-label="Live study timer">
+        <div class="hero-top">
+          <div class="status-pill" id="statusPill">
+            <span class="status-dot" id="statusDot"></span>
+            <span class="subject-label" id="statusText">Idle · select a subject</span>
+          </div>
+          <button class="hero-discard" id="discardBtn" type="button" title="Discard running session" aria-label="Discard running session" data-icon="trash"></button>
+        </div>
+
+        <div class="hero-ring-wrap">
+          <svg class="hero-ring" viewBox="0 0 216 216" aria-hidden="true">
+            <circle class="ring-track" cx="108" cy="108" r="100"></circle>
+            <circle class="ring-progress" id="ringProgress" cx="108" cy="108" r="100" stroke-dasharray="628.3185" stroke-dashoffset="628.3185"></circle>
+          </svg>
+          <div class="hero-center">
+            <div class="hero-timer" id="heroTimer" role="timer" aria-live="off">00:00:00</div>
+            <div class="hero-sub" id="heroSub">Select a subject to begin</div>
+          </div>
+        </div>
+
+        <div class="hero-foot">
+          <div class="goal-row">
+            <span id="goalText">Daily goal · 6h 00m</span>
+            <span class="goal-pct" id="goalPct">0%</span>
+          </div>
+          <div class="goal-track"><div class="goal-fill" id="goalFill"></div></div>
+        </div>
+      </section>
+
+      <section class="schedule-hint hidden" id="scheduleHint" aria-live="polite">
+        <span class="schedule-hint-icon" data-icon="calendar"></span>
+        <div class="schedule-hint-copy">
+          <strong id="scheduleTitle"></strong>
+          <span id="scheduleMeta"></span>
+        </div>
+        <button class="btn small primary schedule-start" id="scheduleStart" type="button">Start</button>
+      </section>
+
+      <section class="section" aria-labelledby="subjectHeading">
+        <div class="section-head">
+          <h2 id="subjectHeading">Subject</h2>
+          <button class="text-btn" id="manageSubjectsBtn" type="button">Manage</button>
+        </div>
+        <div class="subject-grid" id="subjectGrid"></div>
+        <p class="subject-note hidden" id="subjectLockNote">
+          <span data-icon="lock"></span>
+          Subject is locked while a session is running
+        </p>
+      </section>
+
+      <section class="controls" aria-label="Session controls">
+        <button class="action-btn entry" id="entryBtn" type="button">
+          <span class="icon" data-icon="play"></span>
+          <span class="label">ENTRY</span>
+          <span class="hint" id="entryHint">Start session</span>
+        </button>
+        <button class="action-btn exit" id="exitBtn" type="button">
+          <span class="icon" data-icon="stop"></span>
+          <span class="label">EXIT</span>
+          <span class="hint" id="exitHint">Nothing running</span>
+        </button>
+      </section>
+
+      <section class="section" aria-labelledby="todayHeading">
+        <div class="section-head">
+          <h2 id="todayHeading">Today</h2>
+          <span class="streak-pill hidden" id="streakBadge">
+            <span data-icon="flame"></span>
+            <span id="streakText">0-day streak</span>
+          </span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat">
+            <div class="stat-label"><span data-icon="clock"></span>Study time</div>
+            <div class="stat-value" id="statTotal">0m</div>
+            <div class="stat-note" id="statTotalNote">of 6h goal</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label"><span data-icon="layers"></span>Sessions</div>
+            <div class="stat-value" id="statSessions">0</div>
+            <div class="stat-note" id="statSessionsNote">Nothing recorded yet</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label"><span data-icon="hourglass"></span>Longest</div>
+            <div class="stat-value" id="statLongest">0m</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label"><span data-icon="chart"></span>Average</div>
+            <div class="stat-value" id="statAverage">0m</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="recentHeading">
+        <div class="section-head">
+          <h2 id="recentHeading">Recent</h2>
+          <button class="text-btn" id="openRegisterBtn" type="button">Open register</button>
+        </div>
+        <div id="recentList"></div>
+      </section>
+    </main>
+
+    <footer class="popover-footer">
+      <span class="privacy-note"><span data-icon="lock"></span>Stored on this Mac</span>
+      <div class="footer-actions">
+        <button class="footer-btn quit" id="quitBtn" type="button"><span data-icon="power"></span>Quit</button>
+      </div>
+    </footer>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div id="toastRoot" class="toast-root" role="status" aria-live="polite"></div>
+
+  <script src="js/core.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

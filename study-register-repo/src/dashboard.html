@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Register · Analytics</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/compact.css">
+</head>
+<body class="dashboard-page">
+  <div class="dash-shell">
+    <header class="dash-header">
+      <div class="dash-brand">
+        <div class="brand-mark brand-mark-lg" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="8.25"></circle>
+            <path d="M12 7.75V12l2.9 1.85"></path>
+          </svg>
+        </div>
+        <div class="dash-brand-text">
+          <h1>Study analytics</h1>
+          <div class="dash-range-row">
+            <span class="dash-range" id="rangeLabel">—</span>
+            <span class="streak-pill hidden" id="dashStreak">0-day streak</span>
+          </div>
+        </div>
+      </div>
+      <div class="dash-actions">
+        <div class="segmented range-switch" id="rangeSwitch" role="tablist" aria-label="Analytics range">
+          <button type="button" data-range="today" class="is-active">Today</button>
+          <button type="button" data-range="week">This week</button>
+          <button type="button" data-range="month">This month</button>
+          <button type="button" data-range="all">All time</button>
+        </div>
+        <button class="icon-btn dash-icon-btn" id="routineBtn" type="button" title="My Routine" aria-label="My Routine" data-icon="repeat"></button>
+        <button class="icon-btn dash-icon-btn" id="trackerBtn" type="button" title="Open the menu bar register" aria-label="Open the menu bar register" data-icon="grid"></button>
+        <button class="icon-btn dash-icon-btn" id="settingsBtn" type="button" title="Settings" aria-label="Settings" data-icon="gear"></button>
+      </div>
+    </header>
+
+    <main class="dash-main">
+      <section class="kpi-grid" aria-label="Study summary">
+        <article class="panel kpi-card">
+          <div class="kpi-icon accent" data-icon="clock"></div>
+          <div class="kpi-copy">
+            <span class="kpi-label">Study time</span>
+            <strong class="kpi-value" id="kpiTotal">0m</strong>
+            <span class="kpi-note" id="kpiTotalNote">No time recorded</span>
+          </div>
+        </article>
+        <article class="panel kpi-card">
+          <div class="kpi-icon lavender" data-icon="layers"></div>
+          <div class="kpi-copy">
+            <span class="kpi-label">Sessions</span>
+            <strong class="kpi-value" id="kpiSessions">0</strong>
+            <span class="kpi-note" id="kpiSessionsNote">Nothing recorded</span>
+          </div>
+        </article>
+        <article class="panel kpi-card">
+          <div class="kpi-icon mint" data-icon="chart"></div>
+          <div class="kpi-copy">
+            <span class="kpi-label">Daily average</span>
+            <strong class="kpi-value" id="kpiAverage">0m</strong>
+            <span class="kpi-note" id="kpiAverageNote">over 1 day</span>
+          </div>
+        </article>
+        <article class="panel kpi-card">
+          <div class="kpi-icon amber" data-icon="hourglass"></div>
+          <div class="kpi-copy">
+            <span class="kpi-label">Longest session</span>
+            <strong class="kpi-value" id="kpiLongest">—</strong>
+            <span class="kpi-note" id="kpiLongestNote">No sessions yet</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="chart-row">
+        <article class="panel chart-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Study time</h2>
+              <p id="chartSubtitle">Daily breakdown</p>
+            </div>
+            <span class="panel-total" id="chartTotal">0m</span>
+          </div>
+          <div class="bar-chart-mount" id="barChart"></div>
+        </article>
+
+        <article class="panel subject-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Subjects</h2>
+            </div>
+          </div>
+          <div class="subject-panel-body">
+            <div class="donut-wrap">
+              <svg class="donut-svg" id="donutSvg" viewBox="0 0 160 160" aria-hidden="true"></svg>
+              <div class="donut-center">
+                <strong id="donutValue">0m</strong>
+                <span id="donutLabel">no time yet</span>
+              </div>
+            </div>
+            <div class="subject-legend" id="subjectLegend"></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel register-panel" aria-labelledby="registerHeading">
+        <div class="register-head">
+          <div class="register-heading">
+            <h2 id="registerHeading">Register</h2>
+            <span class="register-count" id="historyCount">No sessions yet</span>
+          </div>
+          <div class="register-tools">
+            <label class="search-box" for="historySearch">
+              <span data-icon="search"></span>
+              <input id="historySearch" type="text" placeholder="Search subject or date" autocomplete="off" spellcheck="false">
+            </label>
+            <input class="date-input" id="historyDate" type="date" aria-label="Filter by entry date" title="Filter by entry date">
+            <button class="btn small ghost hidden" id="historyClear" type="button">Clear</button>
+          </div>
+        </div>
+        <div class="history-list" id="historyList"></div>
+      </section>
+    </main>
+
+    <footer class="dash-footer">
+      <span class="dash-version" id="dashVersion"></span>
+    </footer>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div id="toastRoot" class="toast-root" role="status" aria-live="polite"></div>
+
+  <script src="js/core.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

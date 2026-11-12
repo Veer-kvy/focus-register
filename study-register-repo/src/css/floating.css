@@ -1,0 +1,118 @@
+/* Study Register — floating dashboard icon */
+
+.floating-page {
+  background: transparent;
+  overflow: hidden;
+}
+
+.float-icon {
+  position: absolute;
+  left: 7px;
+  top: 7px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--accent-bright);
+  background: var(--card-raised);
+  border: 1px solid var(--line-strong);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  transition: transform 150ms var(--ease), background 150ms var(--ease),
+    border-color 150ms var(--ease), color 150ms var(--ease);
+}
+
+.float-icon svg {
+  width: 25px;
+  height: 25px;
+  pointer-events: none;
+}
+
+.float-hand {
+  transform-box: view-box;
+  transform-origin: 12px 12px;
+}
+
+.float-hand-hour {
+  stroke-width: 2.1;
+  transform: rotate(120deg);
+}
+
+.float-hand-minute {
+  stroke-width: 1.7;
+  transform: rotate(0deg);
+}
+
+.float-hand-dot {
+  fill: currentColor;
+  stroke: none;
+}
+
+.float-icon.is-running .float-hand {
+  transform: rotate(var(--clock-from, 0deg));
+}
+
+/* Real clock gearing: hour hand one turn per 12 hours, minute hand one turn per hour. */
+.float-icon.is-running .float-hand-hour {
+  animation: float-clock-turn 43200s linear infinite;
+}
+
+.float-icon.is-running .float-hand-minute {
+  animation: float-clock-turn 3600s linear infinite;
+}
+
+.float-icon.is-running {
+  border-color: rgba(124, 156, 255, 0.42);
+}
+
+@keyframes float-clock-turn {
+  from {
+    transform: rotate(var(--clock-from, 0deg));
+  }
+
+  to {
+    transform: rotate(calc(var(--clock-from, 0deg) + 1turn));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-icon.is-running .float-hand-hour,
+  .float-icon.is-running .float-hand-minute {
+    animation: none;
+  }
+}
+
+.float-icon:hover {
+  background: var(--secondary);
+  border-color: rgba(124, 156, 255, 0.42);
+  transform: translateY(-1px);
+}
+
+.float-icon:active,
+.float-icon.is-dragging {
+  cursor: grabbing;
+  transform: scale(1.05);
+  transition: transform 90ms var(--ease);
+}
+
+.float-icon.is-holding {
+  border-color: rgba(124, 156, 255, 0.6);
+}
+
+.float-icon:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: light) {
+  .float-icon {
+    background: var(--card);
+    border-color: var(--line-strong);
+  }
+
+  .float-icon:hover {
+    background: var(--card-soft);
+  }
+}
